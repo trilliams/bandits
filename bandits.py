@@ -18,7 +18,7 @@ def bandit(num_rounds,num_actions,lb_mu=40,ub_mu=50,lb_sigma=10,ub_sigma=20):
         totalreward += reward
         print "%i: action %i gives %.2f, total reward: %.2f" % \
               (i+1,i+1,reward,totalreward)
-    estimates = estimatefinder(totals,counts,i+1)
+    estimates = ucb1estimatefinder(totals,counts,i+1)
     for i in range(n,T):
         #Now, choose an action based off of UBC1 estimates:
         choice = estimates.index(max(estimates))
@@ -28,7 +28,7 @@ def bandit(num_rounds,num_actions,lb_mu=40,ub_mu=50,lb_sigma=10,ub_sigma=20):
         counts[choice] += 1
         print "%i: action %i gives %.2f, total reward: %.2f" % \
               (i+1,choice+1,reward,totalreward)
-        estimates = estimatefinder(totals,counts,i+1)
+        estimates = ucb1estimatefinder(totals,counts,i+1)
     #Reveal parameters
     print ""
     for i in range(n):
@@ -43,7 +43,7 @@ def bandit(num_rounds,num_actions,lb_mu=40,ub_mu=50,lb_sigma=10,ub_sigma=20):
     print 'Your cumulative regret is thus %.2f' % regret
     return regret
 
-def estimatefinder(totals,counts,t):
+def ucb1estimatefinder(totals,counts,t):
     #Implementation of the UCB1 update process
     estimates = [(totals[i]/counts[i] + np.sqrt((2*np.log(t)/counts[i]))) \
                  for i in range(len(totals))]
