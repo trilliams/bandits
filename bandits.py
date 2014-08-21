@@ -1,6 +1,6 @@
 import numpy as np
 
-def bandit(num_rounds,num_actions,lb_mu=40,ub_mu=50,lb_sigma=10,ub_sigma=20):
+def bandit(num_rounds,num_actions,lb_mu=0,ub_mu=50,lb_sigma=0,ub_sigma=5):
     #Simulates a multi-armed bandit via UCB1 using n actions over T rounds
     totals = []
     counts = []
@@ -8,7 +8,7 @@ def bandit(num_rounds,num_actions,lb_mu=40,ub_mu=50,lb_sigma=10,ub_sigma=20):
     T = num_rounds
     #Determine the parameters of each action
     mus = list(np.random.uniform(lb_mu,ub_mu,n))
-    sigmas = list(np.random.uniform(lb_sigma,ub_sigma,n))
+    sigmas = [np.random.uniform(lb_sigma,ub_sigma)**2 for i in range(n)]
     totalreward = 0
     for i in range(n):
         #Establish a baseline reward for each action 
