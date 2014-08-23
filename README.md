@@ -11,7 +11,7 @@ Soon to come:
 Dependencies:  
 Numpy
 
-UCB1:
+UCB1:   
 http://jeremykun.com/2013/10/28/optimism-in-the-face-of-uncertainty-the-ucb1-algorithm/
 
 Example run (excluding final output):  
