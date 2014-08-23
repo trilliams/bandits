@@ -12,7 +12,7 @@ UCB1:
 http://jeremykun.com/2013/10/28/optimism-in-the-face-of-uncertainty-the-ucb1-algorithm/
 
 Example run (excluding final output):  
->>> bandit(30,10)  
+bandit(30,10)  
 1: action 1 gives 12.42, total reward: 12.42  
 2: action 2 gives 30.47, total reward: 42.89  
 3: action 3 gives 0.78, total reward: 43.67   
