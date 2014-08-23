@@ -31,4 +31,4 @@ Action 4 had mean 33.87 and variance 1.12
   
 The best action was 3, with mean 47.53.  
 Your total reward is 365.31.  
-Your cumulative regret is thus 109.98  
+Your cumulative regret is thus 109.98.  
