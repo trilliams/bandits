@@ -1,6 +1,7 @@
 import numpy as np
 
-def bandit(num_rounds,num_actions,lb_mu=0,ub_mu=50,lb_sigma=0,ub_sigma=5):
+def bandit(num_rounds,num_actions,lb_mu=0,ub_mu=50,lb_sigma=0,ub_sigma=5,\
+           feedback=True):
     #Simulates a multi-armed bandit via UCB1 using n actions over T rounds
     totals = []
     counts = []
@@ -16,8 +17,9 @@ def bandit(num_rounds,num_actions,lb_mu=0,ub_mu=50,lb_sigma=0,ub_sigma=5):
         totals.append(reward)
         counts.append(1)
         totalreward += reward
-        print "%i: action %i gives %.2f, total reward: %.2f" % \
-              (i+1,i+1,reward,totalreward)
+        if feedback:
+            print "%i: action %i gives %.2f, total reward: %.2f" % \
+                  (i+1,i+1,reward,totalreward)
     estimates = ucb1estimatefinder(totals,counts,i+1)
     for i in range(n,T):
         #Now, choose an action based off of UBC1 estimates:
@@ -26,21 +28,25 @@ def bandit(num_rounds,num_actions,lb_mu=0,ub_mu=50,lb_sigma=0,ub_sigma=5):
         reward = np.random.normal(mus[choice],sigmas[choice])
         totals[choice] += reward
         counts[choice] += 1
-        print "%i: action %i gives %.2f, total reward: %.2f" % \
-              (i+1,choice+1,reward,totalreward)
+        totalreward += reward
+        if feedback:
+            print "%i: action %i gives %.2f, total reward: %.2f" % \
+                  (i+1,choice+1,reward,totalreward)
         estimates = ucb1estimatefinder(totals,counts,i+1)
     #Reveal parameters
-    print ""
-    for i in range(n):
-        print "Action %i had mean %.2f and variance %.2f" % \
-              (i+1,mus[i],sigmas[i])
-    print ""
+    if feedback:
+        print ""
+        for i in range(n):
+            print "Action %i had mean %.2f and variance %.2f" % \
+                  (i+1,mus[i],sigmas[i])
+        print ""
     #recap the situation, compute regret
     regret = max(mus)*T - totalreward
-    print 'The best action was %i, with mean %.2f.' % \
-          (mus.index(max(mus))+1,max(mus))
-    print 'Your total reward is %.2f.' % totalreward
-    print 'Your cumulative regret is thus %.2f' % regret
+    if feedback:
+        print 'The best action was %i, with mean %.2f.' % \
+              (mus.index(max(mus))+1,max(mus))
+        print 'Your total reward is %.2f.' % totalreward
+        print 'Your cumulative regret is thus %.2f' % regret
     return regret
 
 def ucb1estimatefinder(totals,counts,t):
