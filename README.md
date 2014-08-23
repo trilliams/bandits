@@ -8,6 +8,9 @@ Soon to come:
 -more options for reward distributions   
 -graphical comparisons of algorithms   
 
+Dependencies:  
+Numpy
+
 UCB1:
 http://jeremykun.com/2013/10/28/optimism-in-the-face-of-uncertainty-the-ucb1-algorithm/
 
